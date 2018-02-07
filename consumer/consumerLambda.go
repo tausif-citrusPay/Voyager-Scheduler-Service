@@ -8,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
+	"errors"
 )
 
 func handler(ctx context.Context) {
@@ -45,8 +46,16 @@ func handler(ctx context.Context) {
 
 }
 
+func OnlyErrors() error {
+	return errors.New("something went wrong!")
+}
+
 func main() {
+	lambda.Start(OnlyErrors)
+}
+
+/*func main() {
 
 	log.Print("Voyager has reached in the interstellar space")
 	lambda.Start(handler)
-}
+}*/
