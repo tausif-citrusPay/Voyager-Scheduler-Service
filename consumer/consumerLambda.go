@@ -2,21 +2,18 @@ package main
 
 import (
 	"context"
+	"errors"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
-	"errors"
 )
 
-func handler(ctx context.Context) {
+func handler() error {
 
 	log.Print("Consuming from worm hole")
-	if ctx != nil {
-		log.Print("Context: ", ctx)
-	}
 	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
 	log.Print("TASK_QUEUE_URL: ", TASK_QUEUE_URL)
 	//var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
@@ -37,25 +34,21 @@ func handler(ctx context.Context) {
 
 	if err != nil {
 		log.Fatal("Error while getting messages from Worm Hole")
+		return errors.New("Error while getting messages from Worm Hole!")
 	}
 
 	if len(messages.Messages) > 0 {
 		log.Print("Received something")
 	}
+	log.Print("Processing completed")
+	return nil
+
 	// call worker lambda
 
 }
 
-func OnlyErrors() error {
-	return errors.New("something went wrong!")
-}
-
 func main() {
-	lambda.Start(OnlyErrors)
-}
-
-/*func main() {
 
 	log.Print("Voyager has reached in the interstellar space")
 	lambda.Start(handler)
-}*/
+}
