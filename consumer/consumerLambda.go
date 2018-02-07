@@ -9,12 +9,14 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
-var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
-var AWS_REGION = os.Getenv("AWS_REGION")
-var max_no_messages int64 = 10
 
 func handler(context map[string]interface{}) {
+
+
+	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
+	//var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
+	var AWS_REGION = os.Getenv("AWS_REGION")
+	var max_no_messages int64 = 10
 
 	// receive messages from worm hole
 	log.Print("Consuming from worm hole")
