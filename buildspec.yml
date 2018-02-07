@@ -10,7 +10,7 @@ phases:
       - ln -s "${CODEBUILD_SRC_DIR}" "/go/src/main"
 
       # Install golint
-      - go get -u github.com/golang/lint/golint
+      #- go get -u github.com/golang/lint/golint
 
   pre_build:
     commands:
@@ -19,16 +19,16 @@ phases:
       - cd "/go/src/main"
 
       # Fetch all dependencies
-      - go get ./...
+      #- go get ./...
 
       # Ensure code passes all lint tests
-      - golint -set_exit_status
+      #- golint -set_exit_status
 
       # Check for common Go application problems with 'go tool vet'
-      - go tool vet .
+      #- go tool vet .
 
       # Run all tests included with our application
-      - go test .
+      #- go test .
 
   build:
     commands:
