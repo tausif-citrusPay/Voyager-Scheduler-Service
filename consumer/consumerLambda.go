@@ -1,4 +1,4 @@
-package consumer
+package main
 
 import (
 	"github.com/aws/aws-sdk-go/aws"
