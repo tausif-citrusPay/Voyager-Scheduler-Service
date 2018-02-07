@@ -1,20 +1,23 @@
 package main
 
 import (
+	"context"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
-	"github.com/aws/aws-lambda-go/lambda"
 )
 
-
-func handler() {
+func handler(ctx context.Context) {
 
 	log.Print("Consuming from worm hole")
+	if ctx != nil {
+		log.Print("Context: ", ctx)
+	}
 	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
-	log.Print("TASK_QUEUE_URL: " , TASK_QUEUE_URL)
+	log.Print("TASK_QUEUE_URL: ", TASK_QUEUE_URL)
 	//var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
 	var AWS_REGION = os.Getenv("AWS_REGION")
 	log.Print("AWS_REGION: ", AWS_REGION)
@@ -28,8 +31,6 @@ func handler() {
 	sqsClient := sqs.New(awsSession)
 
 	var messages = &sqs.ReceiveMessageOutput{}
-
-
 
 	messages, err := sqsClient.ReceiveMessage(&sqs.ReceiveMessageInput{QueueUrl: &TASK_QUEUE_URL, MaxNumberOfMessages: &max_no_messages})
 
