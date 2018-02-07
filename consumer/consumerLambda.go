@@ -14,7 +14,7 @@ var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
 var AWS_REGION = os.Getenv("AWS_REGION")
 var max_no_messages int64 = 10
 
-func Handler(context map[string]interface{}) {
+func handler(context map[string]interface{}) {
 
 	// receive messages from worm hole
 	log.Print("Consuming from worm hole")
@@ -45,5 +45,6 @@ func Handler(context map[string]interface{}) {
 
 func main() {
 
-	lambda.Start(Handler)
+	log.Print("Voyager has reached in the interstellar space")
+	lambda.Start(handler)
 }
