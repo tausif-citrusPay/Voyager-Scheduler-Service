@@ -10,7 +10,7 @@ import (
 )
 
 
-func handler(context map[string]interface{}) {
+func handler() {
 
 	log.Print("Consuming from worm hole")
 	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
