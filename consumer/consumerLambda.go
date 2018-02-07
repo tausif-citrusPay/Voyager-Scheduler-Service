@@ -12,16 +12,15 @@ import (
 
 func handler(context map[string]interface{}) {
 
-
+	log.Print("Consuming from worm hole")
 	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
+	log.Print("TASK_QUEUE_URL: " , TASK_QUEUE_URL)
 	//var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
 	var AWS_REGION = os.Getenv("AWS_REGION")
+	log.Print("AWS_REGION: ", AWS_REGION)
 	var max_no_messages int64 = 10
 
 	// receive messages from worm hole
-	log.Print("Consuming from worm hole")
-	log.Print("TASK_QUEUE_URL: " , TASK_QUEUE_URL)
-	log.Print("AWS_REGION: ", AWS_REGION)
 	region := "us-east-1"
 
 	awsSession := session.Must(session.NewSession(&aws.Config{Region: aws.String(region)}))
