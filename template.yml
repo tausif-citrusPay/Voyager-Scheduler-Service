@@ -65,7 +65,7 @@ Resources:
       Type: AWS::Serverless::Function
       Properties:
         CodeUri: ./consumer
-        Handler: consumerLambda.handler
+        Handler: consumerLambda
         MemorySize: 128
         Role: !Sub ${ConsumerLambdaRole.Arn}
         Runtime: go1.x
