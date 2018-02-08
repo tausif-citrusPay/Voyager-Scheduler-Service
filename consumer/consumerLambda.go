@@ -8,6 +8,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
+	"github.com/aws/aws-lambda-go/lambda/messages"
+	"github.com/aws/aws-lambda-go/lambdacontext"
 )
 
 type workerReqData struct {
@@ -44,7 +46,12 @@ func handler() error {
 
 	if len(messagesList.Messages) > 0 {
 		log.Print("Received something")
-		lambda.Function{}.Invoke()
+		req := &messages.InvokeRequest{InvokedFunctionArn:WORKER_LAMBDA_NAME, Payload:[]byte("Hard Coded message")}
+		response := &messages.InvokeResponse{}
+		err := lambda.Function{}.Invoke(req,response)
+		if err != nil {
+			log.Print("Error occured while invoking worker Lambda ", WORKER_LAMBDA_NAME)
+		}
 	}
 	log.Print("Processing completed")
 	return nil
@@ -54,7 +61,6 @@ func handler() error {
 }
 
 func main() {
-
 	log.Print("Voyager has reached in the interstellar space")
 	lambda.Start(handler)
 }
