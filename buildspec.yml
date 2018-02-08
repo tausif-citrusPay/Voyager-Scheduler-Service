@@ -34,7 +34,7 @@ phases:
     commands:
 
       # Build our go application
-      - go build -o main
+      - go build -o main main.go
       - go build -o consumerLambda ./consumer/consumerLambda.go
       - go build -o enquiryWorker ./worker/enquiry.go
       # Copy static assets to S3, and package application with AWS CloudFormation/SAM

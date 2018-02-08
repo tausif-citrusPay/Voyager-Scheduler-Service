@@ -9,7 +9,6 @@ import (
 	"log"
 	"os"
 	"github.com/aws/aws-lambda-go/lambda/messages"
-	"github.com/aws/aws-lambda-go/lambdacontext"
 )
 
 type workerReqData struct {
