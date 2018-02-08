@@ -50,7 +50,7 @@ func handler() error {
 
 		log.Print("Received something")
 
-		var jsonMessage,_ = json.Marshal(workerPayload{Content:"SQS content"})
+		var jsonMessage,_ = json.Marshal(*(messagesList.Messages[0].Body))
 
 		_, err := lambdaClient.Invoke(&lambdaService.InvokeInput{FunctionName: aws.String(WORKER_LAMBDA_NAME), Payload: jsonMessage})
 		if err != nil {

@@ -14,7 +14,7 @@ func EnquiryHandler(output *lambdaService.InvokeOutput) error {
 
 	log.Print("Executing the Enquiry Worker")
 
-	log.Print("Payload received: " , output.Payload)
+	log.Print("Payload received: " , &output.Payload)
 
 
 	log.Print("Processing completed")
