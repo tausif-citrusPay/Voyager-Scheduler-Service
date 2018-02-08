@@ -9,12 +9,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"log"
 	"os"
+	"encoding/json"
 )
 
-type workerReqData struct {
-	FunctionName   string
-	InvocationType string
-	Payload        string
+type workerPayload struct {
+	Content   string
 }
 
 func handler() error {
@@ -46,11 +45,14 @@ func handler() error {
 		return errors.New("Error while getting messages from Worm Hole!")
 	}
 
+	// call worker lambda
 	if len(messagesList.Messages) > 0 {
+
 		log.Print("Received something")
 
-		_, err := lambdaClient.Invoke(&lambdaService.InvokeInput{FunctionName: aws.String(WORKER_LAMBDA_NAME), Payload: []byte("Hard Coded message")})
+		var jsonMessage,_ = json.Marshal(workerPayload{Content:"SQS content"})
 
+		_, err := lambdaClient.Invoke(&lambdaService.InvokeInput{FunctionName: aws.String(WORKER_LAMBDA_NAME), Payload: jsonMessage})
 		if err != nil {
 			log.Print("Error occured while invoking worker Lambda ", WORKER_LAMBDA_NAME, err.Error())
 		}
@@ -58,7 +60,6 @@ func handler() error {
 	log.Print("Processing completed")
 	return nil
 
-	// call worker lambda
 
 }
 
