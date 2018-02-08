@@ -118,7 +118,7 @@ Resources:
   WorkerLambda:
       Type: AWS::Serverless::Function
       Properties:
-        Handler: enquiry
+        Handler: enquiryWorker
         MemorySize: 128
         Role: !Sub ${WorkerLambdaRole.Arn}
         Runtime: go1.x
