@@ -10,11 +10,11 @@ import (
     @author: tausif
 */
 
-func EnquiryHandler(output *lambdaService.InvokeOutput) error {
+func EnquiryHandler(output *lambdaService.InvokeInput) error {
 
 	log.Print("Executing the Enquiry Worker")
 
-	log.Print("Payload received: " , &output.Payload)
+	log.Print("Payload received: " , output.Payload)
 
 
 	log.Print("Processing completed")
