@@ -65,9 +65,9 @@ Resources:
           PolicyDocument:
             Statement:
             - Effect: Allow
-            Action:
+              Action:
             - lambda:InvokeFunction
-            Resource: !Sub ${WorkerLambda.Arn}
+              Resource: !Sub ${WorkerLambda.Arn}
   ConsumerLambda:
       Type: AWS::Serverless::Function
       Properties:
