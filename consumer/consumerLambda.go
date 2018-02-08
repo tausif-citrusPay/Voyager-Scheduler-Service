@@ -52,7 +52,7 @@ func handler() error {
 		_, err := lambdaClient.Invoke(&lambdaService.InvokeInput{FunctionName: aws.String(WORKER_LAMBDA_NAME), Payload: []byte("Hard Coded message")})
 
 		if err != nil {
-			log.Print("Error occured while invoking worker Lambda ", WORKER_LAMBDA_NAME)
+			log.Print("Error occured while invoking worker Lambda ", WORKER_LAMBDA_NAME, err.Error())
 		}
 	}
 	log.Print("Processing completed")
