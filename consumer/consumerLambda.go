@@ -10,12 +10,18 @@ import (
 	"os"
 )
 
+type workerReqData struct {
+	FunctionName   string
+	InvocationType string
+	Payload        string
+}
+
 func handler() error {
 
 	log.Print("Consuming from worm hole")
 	var TASK_QUEUE_URL = os.Getenv("TASK_QUEUE_URL")
 	log.Print("TASK_QUEUE_URL: ", TASK_QUEUE_URL)
-	//var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
+	var WORKER_LAMBDA_NAME = os.Getenv("WORKER_LAMBDA_NAME")
 	var AWS_REGION = os.Getenv("AWS_REGION")
 	log.Print("AWS_REGION: ", AWS_REGION)
 	var max_no_messages int64 = 10
@@ -27,17 +33,18 @@ func handler() error {
 
 	sqsClient := sqs.New(awsSession)
 
-	var messages = &sqs.ReceiveMessageOutput{}
+	var messagesList = &sqs.ReceiveMessageOutput{}
 
-	messages, err := sqsClient.ReceiveMessage(&sqs.ReceiveMessageInput{QueueUrl: &TASK_QUEUE_URL, MaxNumberOfMessages: &max_no_messages})
+	messagesList, err := sqsClient.ReceiveMessage(&sqs.ReceiveMessageInput{QueueUrl: &TASK_QUEUE_URL, MaxNumberOfMessages: &max_no_messages})
 
 	if err != nil {
 		log.Fatal("Error while getting messages from Worm Hole")
 		return errors.New("Error while getting messages from Worm Hole!")
 	}
 
-	if len(messages.Messages) > 0 {
+	if len(messagesList.Messages) > 0 {
 		log.Print("Received something")
+		lambda.Function{}.Invoke()
 	}
 	log.Print("Processing completed")
 	return nil
