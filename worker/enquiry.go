@@ -3,18 +3,19 @@ package main
 import (
 	"log"
 	"github.com/aws/aws-lambda-go/lambda"
+	lambdaService "github.com/aws/aws-sdk-go/service/lambda"
 )
 
 /*
     @author: tausif
 */
 
-func EnquiryHandler(output map[string]interface{}) error {
+func EnquiryHandler(output string) error {
 
 	log.Print("Executing the Enquiry Worker")
 
-	log.Print("Output: " , output)
-	log.Print("Payload received: " , output["Payload"])
+	log.Print("Payload received: " , output)
+	log.Print("Output: " , lambdaService.InvokeInput{}.Payload)
 
 
 	log.Print("Processing completed")
