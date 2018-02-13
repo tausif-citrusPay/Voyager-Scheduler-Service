@@ -39,7 +39,7 @@ func EnquiryHandler(output string) error {
 		return err
 	}
 
-	log.Print("BLAZEPAY VERSION :", resp)
+	log.Print("BLAZEPAY VERSION :", resp.Body)
 
 	// Callers should close resp.Body
 	// when done reading from it
